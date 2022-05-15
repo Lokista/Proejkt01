@@ -7,7 +7,7 @@ function MenuObject({ isKlicked }) {
 
 
   return (
-    <div className='flex flex-col text-red-500 items-center absolute  w-full bg-gray-900 bg-opacity-90 lg:hidden'>
+    <div className='flex flex-col z-90 text-red-500 items-center absolute  w-full bg-gray-900 bg-opacity-90 lg:hidden z-50'>
                  <Link href="/Home">
                    <a className=" link2 active:bg-gray-800 transition-colors duration-100 p-2 w-full flex justify-center">
                        Home</a>

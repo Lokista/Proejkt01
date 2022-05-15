@@ -5,7 +5,7 @@ import Svg from '../Svg'
 
 function Footer() {
   return (
-    <div className="w-full bg-elementC h-200">
+    <div className="w-full bg-elementC h-200 relative">
         <div className='grid grid-cols-1 md:gap-30 sm:ml-28 pt-10 md:grid-cols-2 2xl:grid-cols-3 gap-y-12 sm:gap-y-0'>
           <div className='xl:pl-32'>
             <div>

@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import Image from 'next/image'
+import Feedback from '../components/Feedback/Feedback'
 import Footer from '../components/Footer/Footer'
 import Header from '../components/Header/Header'
 import styles from '../styles/Home.module.css'
@@ -13,11 +14,17 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
+
+
       <Header>
 
       </Header>
       {/* feedback */}
-      xds
+      <Feedback>
+
+      </Feedback>
+
+
 
       <Footer>
 

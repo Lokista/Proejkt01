@@ -1,6 +1,6 @@
 import React from 'react'
 import Image from 'next/image'
-import picture from '/images/shoe.jpg'
+import picture from '/public/images/shoe.jpg'
 import Link from 'next/link'
 import { LoginIcon, LogoutIcon, SearchIcon, ShoppingCartIcon } from '@heroicons/react/outline'
 import Menu from './Menu'
@@ -13,7 +13,7 @@ function Header() {
 
   return (
     <header className= ' '>
-      <div className="bg-elementC flex sticky top-0 z-69 text-red-500 p-2 justify-items-center items-center py-2">
+      <div className="bg-elementC flex sticky top-0 z-70 text-red-500 p-2 justify-items-center items-center py-2">
         <div className='flex space-x-3 items-center mr-5 basis-1/7'>
             <Image 
             className="rounded-full cursor-pointer hover:opacity-10 hover:bg-transparent scale-90 sm:scale-100"
@@ -42,17 +42,17 @@ function Header() {
                        Home</a>
                    
                    </Link> 
-                   <Link href="/">
+                   <Link href="/Shop">
                    <a className=" link2 ">
                        Shop</a>
                    
                    </Link> 
-                   <Link href="/">
+                   <Link href="/Gallery">
                    <a className=" link2 ">
                    Gallery</a>
                    
                    </Link> 
-                   <Link href="/">
+                   <Link href="/Contact">
                    <a className=" link2 ">
                        Contact</a>
                    </Link> 
