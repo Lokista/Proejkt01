@@ -1,17 +1,30 @@
 import { useState } from "react"
 import Footer from "../../components/Footer/Footer"
 import Header from "../../components/Header/Header"
+import { useAuth } from '../../components/Context/AuthContext'
+import { useRouter } from "next/router"
 
 function Login() {
+    const router = useRouter()
+    const { login , user } = useAuth()
+    console.log(user)
+
     const [data , setData] = useState({
         email: "",
         password: "",
     })
 
-    const handleLogin = (e) => {
+    const handleLogin =  async (e) => {
         e.preventDefault()
-        console.log(data)
+       try{
+           await login(data.email , data.password)
+           router.push('/')
+
+       }catch(err){
+           console.log(err)
+       }
     }
+    const stringg = "st"
 
     return(
         <div>
@@ -45,7 +58,7 @@ function Login() {
                 </div>
 
 
-                <div className="flex flex-col p-5">
+                <div className="flex flex-col p-5 ">
                 <label className="pr-[160px] pb-3">
                     Password:
                 </label>

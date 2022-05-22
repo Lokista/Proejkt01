@@ -7,8 +7,16 @@ import Menu from './Menu'
 import MenuObject from './MenuObject'
 import { useState } from "react"
 import { ContextMenu , activeMenu } from '../Context'
+import { useAuth } from '../Context/AuthContext'
+import { useRouter } from 'next/router'
+import { useSelector } from "react-redux"
+import { selectItems } from "../../Redux/BasketSlice"
 
 function Header() {
+    const { user , logout} = useAuth()
+    const router = useRouter()
+    const items = useSelector(selectItems)
+
     const [isClicked , setIsClicked] = useState(false)
 
   return (
@@ -61,18 +69,55 @@ function Header() {
         <div className=' hidden md:flex items-center text-white scale-75 lg:flex-none flex-auto '>
 
 {/* function to add login needed here masta */}
-                 <div className="hidden lg:flex group bg-gray-500 p-2 hover:scale-105 rounded-l-xl  ">
+            { user ?
+            ( 
+        <div className='flex'>
+
+              <Link href="/Checkout" passHref>
+                <div className='relative flex w-20'>
+                <ShoppingCartIcon className=' h-15 w-14 transistion-color duration-700 cursor-pointer'>
+                </ShoppingCartIcon>
+                 <div className='absolute text-gray-100 left-12 font-bold text-xl w-4 text-center
+                  bg-red-700 rounded-full '> { items.length} </div>
+                  </div>
+              </Link>
+
+
+           <div onClick={() => {
+              logout() 
+              router.push('/Login')
+            }}
+            className="hidden lg:flex group bg-red-500 p-2 hover:scale-105 rounded-xl">
+            <LogoutIcon className='h-15 w-6  transistion-color duration-700 cursor-pointer '>
+            </LogoutIcon>
+                 <p className='hidden lg:flex transistion-color duration-700 cursor-pointer scale-100 '>Logout</p>
+           </div>
+        </div>
+            )
+
+            :
+                 (<>
+
+                 <Link href="/Login" passHref >
+                   <div className="hidden lg:flex group bg-gray-500 p-2 hover:scale-105 rounded-l-xl  ">
             <LoginIcon className='h-15 w-6  transistion-color duration-700 cursor-pointer '>
             </LoginIcon>
                  <p className='hidden lg:flex transistion-color duration-700 cursor-pointer scale-100 '>Login</p>
                  </div>
+                 </Link>
 
 
-                 <div className=" hidden lg:flex group  bg-red-500 p-2 hover:scale-105 rounded-r-xl ">
+                 <Link href="/SignUp" passHref>
+                 <div className=" hidden lg:flex group  bg-red-500 p-2 hover:scale-105 rounded-r-xl " >
             <LogoutIcon className='h-15 w-6 transistion-color duration-700 cursor-pointer'>
             </LogoutIcon >
-                 <p className='hidden text-white lg:flex transistion-color duration-700 cursor-pointer scale-100'>Sign In</p>
+                 <p className='hidden text-white lg:flex transistion-color duration-700 cursor-pointer scale-100'>Sign up</p>
                  </div>
+                 </Link>
+                 </>
+                 )
+                 }
+                 
                  
         </div>
         {console.log(isClicked)}

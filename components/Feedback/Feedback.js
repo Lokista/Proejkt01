@@ -6,11 +6,8 @@ function Feedback({ products }) {
 
 
     return(
-        <div>
-            <div className=" items-center justify-center flex text-red-500  ">
-            <h1 className=" text-3xl ">Our Products Here</h1> 
-            </div>
-            <div className="relative grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 ml-4 sm:ml-28 ">
+        <div className="relative items-center justify-center text-center bg-elementC rounded-xl sm:m-6 md:sm-8 lg:sm-12">
+            <div className="relative grid grid-flow-row-dense lg:grid-cols-2 2xl:grid-cols-3">
             {products?.map(({ id , title , description , price, count , image }) => (
                 <ProductData
                 key={id}

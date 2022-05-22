@@ -1,9 +1,13 @@
 import React from 'react'
 import Link from 'next/link'
 import { LoginIcon, LogoutIcon } from '@heroicons/react/outline'
-
+import { useAuth } from '../Context/AuthContext'
+import  { useRouter  } from 'next/router'
+ 
 function MenuObject({ isKlicked }) {
+  const router = useRouter()
     
+  const { user  , logout}  = useAuth()
 
 
   return (
@@ -29,17 +33,42 @@ function MenuObject({ isKlicked }) {
                    </Link> 
 
                   {/* function to add login needed here masta */}
-                   <div className=" group bg-gray-500 p-2  rounded-l-xl w-full flex justify-center bg-opacity-50">
+
+                   {
+                     user ? (<div onClick={() => {
+                       logout()
+                       router.push('/Login')
+                       
+
+                     }} className=" group bg-red-500 p-2  rounded-xl w-full flex justify-center bg-opacity-50">
+                     <LogoutIcon className='h-15 w-6  transistion-color duration-700 cursor-pointer '>
+                     </LogoutIcon>
+                          <p className=' transistion-color duration-700 cursor-pointer scale-100 text-gray-300'>Logout</p>
+                          </div>
+                          )
+                          
+                          :
+
+             (       
+                <>
+                <Link href="/Login" passHref>
+             <div className=" group bg-gray-500 p-2  rounded-l-xl w-full flex justify-center bg-opacity-50">
             <LoginIcon className='h-15 w-6  transistion-color duration-700 cursor-pointer '>
             </LoginIcon>
                  <p className=' transistion-color duration-700 cursor-pointer scale-100 '>Login</p>
                  </div>
-
+                 </Link>
+                 
+                 <Link href="/SignUp" passHref>
                  <div className=" group  bg-red-500 p-2  rounded-r-xl w-full flex justify-center bg-opacity-50" >
             <LogoutIcon className='text-white h-15 w-6 transistion-color duration-700 cursor-pointer'>
             </LogoutIcon >
                  <p className='text-white transistion-color duration-700 cursor-pointer scale-100'>Sign In</p>
                  </div>
+                 </Link>
+                 </>
+             )
+                 }
                    
     </div>
   )

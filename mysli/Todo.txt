@@ -1,0 +1,4 @@
+zrobic sobie itemki dodawanie do koszyka oraz usuwanie z koszyka wyliczanie sumy 
+
+strona z komentarzami pod itemkami , strona z itemami poprzez id
+
