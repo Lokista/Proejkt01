@@ -2,6 +2,7 @@ import Image from "next/image"
 import Currency from "react-currency-formatter"
 import { useDispatch } from "react-redux"
 import { addToBasket } from "../../Redux/BasketSlice"
+import Link from "next/link"
 
 function ProductData({ id , title , description , price, count , image }) {
 
@@ -13,6 +14,10 @@ function ProductData({ id , title , description , price, count , image }) {
         };
 
         dispatch(addToBasket(product))
+    }
+    // prevent src errror from next/image
+    if(!image){
+        return
     }
 
     return(
@@ -29,8 +34,10 @@ function ProductData({ id , title , description , price, count , image }) {
            alt="xd"
            />
             </div>
-
+           <Link href={`/Product/${id}`} passHref>
            <p className="text-2xl md:text-3xl font-bold"> {title} </p>
+           </Link>
+           {console.log(`id to ${title}`)}
            <p className=" text-md md:text-xl"> {description} </p>
            <div className="font-bold text-xl">
                <Currency quantity={price } currency="usd" >

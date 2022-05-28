@@ -23,3 +23,11 @@
     @apply hover:text-white transition-colors duration-300 cursor-pointer;
   }
 }
+@layer components {
+  .button {
+
+    @apply  h-auto rounded-xl bg-red-500 p-2 
+    text-xl font-semibold hover:scale-105 transition-colors 
+    duration-700 hover:bg-red-400 my-auto;
+  }
+}

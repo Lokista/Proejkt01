@@ -18,8 +18,8 @@ const map = "Wroclaw";
             <div className='flex'>
                 
         <ul key={contact.Miasto}>
-        <li><strong>Information</strong></li>
-            <li>
+        <li key={contact.Miasto}><strong>Information</strong></li>
+            <li >
             Miasto: {contact.Miasto}
             </li>
             <li>

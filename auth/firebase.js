@@ -1,16 +1,21 @@
-import { initializeApp } from "firebase/app";
+import { initializeApp , getApp, deleteApp } from "firebase/app";
 import { getAuth } from "firebase/auth"
 import { secret } from "../secret/secret"
+import { getDatabase  } from "firebase/database";
 
 const firebaseConfig = {
-  apiKey: secret.apiKey,
-  authDomain: secret.authDomain,
-  projectId: secret.projectId,
-  storageBucket: secret.storageBucket,
-  messagingSenderId: secret.messagingSenderId,
-  appId: secret.appId,
-  measurementId: secret.measurementId
+  apiKey: "AIzaSyCNycUmgy7u2Br1-vWwuAOIfEn2EmBze2A",
+  authDomain: "shoep-608cb.firebaseapp.com",
+  databaseURL: "https://shoep-608cb-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "shoep-608cb",
+  storageBucket: "shoep-608cb.appspot.com",
+  messagingSenderId: "4346193764",
+  appId: "1:4346193764:web:19a20ed291370753363c71",
+  measurementId: "G-1YZ1QZVJ3P"
 };
+  const app = initializeApp(firebaseConfig , "xd");
+  
 
-const app = initializeApp(firebaseConfig);
-export const auth = getAuth()
+
+export const auth = getAuth(app)
+export const db = getDatabase(app)
