@@ -9,6 +9,7 @@ function Feedback({ products }) {
             <div className="relative grid grid-flow-row-dense lg:grid-cols-2 2xl:grid-cols-3">
             {products?.map(({ id , title , description , price, count , image }) => (
                 <ProductData
+                id={id}
                 key={id}
                 title={title}
                 description={description}

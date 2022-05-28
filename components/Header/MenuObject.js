@@ -3,10 +3,26 @@ import Link from 'next/link'
 import { LoginIcon, LogoutIcon } from '@heroicons/react/outline'
 import { useAuth } from '../Context/AuthContext'
 import  { useRouter  } from 'next/router'
+import { useRef } from "react"
+import { db } from "../../auth/firebase"
+import { FirebaseError } from 'firebase/app'
  
 function MenuObject({ isKlicked }) {
   const router = useRouter()
-    
+  const comentRef = useRef(null)
+
+  
+  const sendComent = (e) => {
+    e.preventDefault()
+    if(!comentRef.current.value) return;
+    db.collection('comments').add({
+      comment: comentRef.current.value,
+      account: user.email,
+      timestamp: FirebaseError.firestore.FieldValue.serverTimeStamp()
+    })
+    inputRef.current.value = ""
+
+  }
   const { user  , logout}  = useAuth()
 
 

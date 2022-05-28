@@ -8,7 +8,7 @@ import { useState , useEffect} from 'react'
 function Shop () {
 
     const prRef = ref(db,"product/")
-    const productse =  Object.values(onValue(prRef , (snap) => snap.val() ))
+    // const productse =  Object.values(onValue(prRef , (snap) => snap.val() ))
     const [ proData , setProData ] = useState([])
 
     useEffect( () => {

@@ -2,6 +2,8 @@ import { initializeApp , getApp, deleteApp } from "firebase/app";
 import { getAuth } from "firebase/auth"
 import { secret } from "../secret/secret"
 import { getDatabase  } from "firebase/database";
+import "firebase/storage"
+import {getFirestore, collection } from  "firebase/firestore"
 
 const firebaseConfig = {
   apiKey: "AIzaSyCNycUmgy7u2Br1-vWwuAOIfEn2EmBze2A",
@@ -19,3 +21,5 @@ const firebaseConfig = {
 
 export const auth = getAuth(app)
 export const db = getDatabase(app)
+export const dbF = getFirestore(app);
+export const colComRef = collection(dbF,'comments')
