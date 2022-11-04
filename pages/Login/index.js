@@ -29,7 +29,6 @@ function Login() {
     return(
         <div>
             <Header>
-
             </Header>
         <div className="text-red-500 font-semibold flex flex-cols tracking-widest text-xl justify-center items-center text-center p-5  ">
             <form onSubmit={handleLogin} 
@@ -40,7 +39,7 @@ function Login() {
                     Email address:
                 </label>
                 <input
-                className="bg-red-100 w-[350px] rounded-md h-[35px] pl-4 pb-1"
+                className="bg-gray-100 text-gray-700 w-[350px] rounded-md h-[35px] pl-4 pb-1"
                 onChange={(e) => {
                     setData({
                         ...data,
@@ -51,19 +50,15 @@ function Login() {
                     required
                     type="email"
                     placeholder="Enter email"
-                
                 >
-                
                 </input>
                 </div>
-
-
                 <div className="flex flex-col p-5 ">
                 <label className="pr-[160px] pb-3">
                     Password:
                 </label>
                 <input
-                className="bg-red-100 w-[350px] rounded-md h-[35px] pl-4 pb-1"
+                className="bg-gray-100 text-gray-700 w-[350px] rounded-md h-[35px] pl-4 pb-1"
                 onChange={(e) => {
                     setData({
                         ...data,
@@ -73,10 +68,8 @@ function Login() {
                     value={data.password}
                     required
                     type="password"
-                    placeholder="Password"
-                
+                    placeholder="Password"     
                 >
-                
                 </input>
                 </div>
 

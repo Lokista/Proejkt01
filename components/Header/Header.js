@@ -45,7 +45,7 @@ function Header() {
         </div>
 
         <div className='hidden lg:flex sm:space-x-3 lg:scale-75 xl:scale-100 lg:space-x-3 xl:space-x-12 flex-auto  xl:pl-28'>
-         <Link href="/Home">
+         <Link href="/">
                    <a className=" link2 ">
                        Home</a>
                    
