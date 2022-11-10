@@ -23,4 +23,5 @@ export const auth = getAuth(app)
 export const db = getDatabase(app)
 export const dbF = getFirestore(app);
 export const colComRef = collection(dbF,'comments')
-export const colProRef = collection(dbF , 'products')
+export const colProRef = collection(dbF,'products')
+export const colProtRef = collection(dbF,'productst')

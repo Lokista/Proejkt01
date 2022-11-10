@@ -6,6 +6,7 @@ import Header from '../components/Header/Header'
 import styles from '../styles/Home.module.css'
 import Link from 'next/link'
 import AdminPanel from '../components/AdminPanel/AdminPanel'
+import AdminPanel2 from '../components/AdminPanel/AdminPanel2'
 
 export default function Home({products}) {
 
@@ -20,12 +21,8 @@ export default function Home({products}) {
       <Header>
 
       </Header>
-
-          <AdminPanel products={products}>
-
-          </AdminPanel>
        
-      {/* feedback */}
+      {/* MainSite */}
 
 
 
@@ -37,14 +34,4 @@ export default function Home({products}) {
     </div>
   )
 }
-export async function getServerSideProps(context) {
-  const response = await fetch("http://localhost:3000/localDB/MOCK_DATA.json" );
-  const products = await response.json();
 
-  return{
-      props:{
-           products,
-      },
-  }
-
-}

@@ -35,7 +35,7 @@ function ProductData({ id , title , description , price, count , image }) {
            />
             </div>
            <Link href={`/Product/${id}`} passHref>
-           <p className="text-2xl md:text-3xl font-bold"> {title} </p>
+           <p className="text-2xl md:text-3xl font-bold cursor-pointer transition-colors hover:text-red-500 duration-700 "> {title} </p>
            </Link>
            <p className=" text-md md:text-xl"> {description} </p>
            <div className="font-bold text-xl">

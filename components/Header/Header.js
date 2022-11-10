@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Image from 'next/image'
 import picture from '/public/images/shoe.jpg'
 import Link from 'next/link'
@@ -13,9 +13,34 @@ import { useSelector } from "react-redux"
 import { selectItems } from "../../Redux/BasketSlice"
 
 function Header() {
+    const [headerComponent , setHeaderComponent] = useState({
+      Home: "text-red-500",
+      Shop: "text-red-500",
+      Contact: "text-red-500",
+      Gallery: "text-red-500",
+
+    })
     const { user , logout} = useAuth()
     const router = useRouter()
     const items = useSelector(selectItems)
+    console.log(window.location.pathname)
+    const switchHeaderComponent = (location) => {
+      switch(Location){
+        case '/':
+          setHeaderComponent((prev) => {
+            return{
+              ...prev,
+              Home: "text-gray-100",
+            };
+         
+
+          })
+          
+      }
+    }
+    useEffect(() => {
+
+    },[])
 
     const [isClicked , setIsClicked] = useState(false)
 
@@ -46,22 +71,22 @@ function Header() {
 
         <div className='hidden lg:flex sm:space-x-3 lg:scale-75 xl:scale-100 lg:space-x-3 xl:space-x-12 flex-auto  xl:pl-28'>
          <Link href="/">
-                   <a className=" link2 ">
+                   <a className= {`link2 ${headerComponent.Home}`}>
                        Home</a>
                    
                    </Link> 
                    <Link href="/Shop">
-                   <a className=" link2 ">
+                   <a className={` link2 ${headerComponent.Shop}`}>
                        Shop</a>
                    
                    </Link> 
                    <Link href="/Gallery">
-                   <a className=" link2 ">
+                   <a className={` link2 ${headerComponent.Gallery}`}>
                    Gallery</a>
                    
                    </Link> 
                    <Link href="/Contact">
-                   <a className=" link2 ">
+                   <a className={` link2 ${headerComponent.Contact}`}>
                        Contact</a>
                    </Link> 
         </div>
@@ -87,6 +112,7 @@ function Header() {
               logout() 
               router.push('/Login')
             }}
+            
             className="hidden lg:flex group bg-red-500 p-2 hover:scale-105 rounded-xl">
             <LogoutIcon className='h-15 w-6  transistion-color duration-700 cursor-pointer '>
             </LogoutIcon>
@@ -108,7 +134,7 @@ function Header() {
 
 
                  <Link href="/SignUp" passHref>
-                 <div className=" hidden lg:flex group  bg-red-500 p-2 hover:scale-105 rounded-r-xl " >
+                 <div className= {` hidden lg:flex group  bg-red-500 p-2 hover:scale-105 rounded-r-xl  `} >
             <LogoutIcon className='h-15 w-6 transistion-color duration-700 cursor-pointer'>
             </LogoutIcon >
                  <p className='hidden text-white lg:flex transistion-color duration-700 cursor-pointer scale-100'>Sign up</p>
