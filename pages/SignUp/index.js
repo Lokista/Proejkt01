@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState,useEffect } from "react"
 import Footer from "../../components/Footer/Footer"
 import Header from "../../components/Header/Header"
 import { useAuth } from '../../components/Context/AuthContext'
@@ -23,9 +23,12 @@ function SignUp() {
         password: "",
     })
 
+    useEffect(() => {
+        console.log("tu powinien byc email:",data.email)
+    })
+
     const handleSignUp = async (e) => {
-        e.preventDefault()
-            signup(data.email , data.password)
+              signup(data.email , data.password)
             }
 
     return(
@@ -41,8 +44,17 @@ function SignUp() {
                     Email address:
                 </label>
                 <input
-                className="bg-gray-100 text-gray-700 w-[350px] rounded-md h-[35px] pl-4 pb-1"
-                {...register('email')}
+                className="bg-gray-100 text-gray-700 w-[350px] rounded-md h-[35px] pl-4 pb-1 outline-none"
+                {...register('email' , {
+                    onChange: (e) => {
+                        setData((prev) => ({
+                            ...prev,
+                            email: e.target.value
+
+
+                        }))
+                    },
+                })}
                     type="text"
                     placeholder="Enter email"
                 >
@@ -56,8 +68,18 @@ function SignUp() {
                     Password:
                 </label>
                 <input
-                {...register('password')}
-                className="bg-gray-100 text-gray-700 w-[350px] rounded-md h-[35px] pl-4 pb-1"
+                
+                {...register('password' , {
+                    onChange: (e) => {
+                        setData((prev) => ({
+                            ...prev,
+                            password: e.target.value
+
+
+                        }))
+                    },
+                }   )}
+                className="bg-gray-100 text-gray-700 w-[350px] rounded-md h-[35px] pl-4 pb-1 outline-none"
                     type="password"
                     placeholder="Password"
                 >

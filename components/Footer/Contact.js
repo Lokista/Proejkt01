@@ -15,10 +15,10 @@ const map = "Wroclaw";
     
     if( contact.Miasto === map ){ // choose city
         return (  
-            <div className='flex'>
+            <div className='flex' key={contact.Miasto}>
                 
-        <ul key={contact.Miasto}>
-        <li key={contact.Miasto}><strong>Information</strong></li>
+        <ul >
+        <li ><strong>Information</strong></li>
             <li >
             Miasto: {contact.Miasto}
             </li>
