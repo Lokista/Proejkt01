@@ -1,4 +1,36 @@
-zrobic sobie itemki dodawanie do koszyka oraz usuwanie z koszyka wyliczanie sumy 
+-zrobic sobie itemki dodawanie do koszyka oraz usuwanie z koszyka wyliczanie sumy 
+-strona z komentarzami pod itemkami , strona z itemami poprzez id
+-przemiana bazy danych z realtimedatabase na firestore
+-dodanie formularza kontaktowego ktory wysyla maila
+-dodanie validacji do logowania oraz wylogowywania
 
-strona z komentarzami pod itemkami , strona z itemami poprzez id
+-Przemiana bazy danych tak aby zdjecia byly zamieszczane bezposrednio w firestorze a nie w plikach strony
+
+-Zakladka dla admina na dodawanie produktow do bazy danych
+
+-Dodawanie do kazdego produktu typu buta: szpilki,obcasy,sportowe,korki itp
+
+-Dodawanie do kazdego produktu rozmiarowki butow i zrobienie polaczenia tych butow w jeden poprzez model(nrSerii)
+dzieki temu sztuki butow naliczane byly by po rozmiarze.
+Kiedy juz to bylo by dodane zrobienie w sklepie poprzez wybranie modelu buta mozliwosc wyboru rozmiaru i czy jest dostepny
+czyli np fetchujemy dane i zapisujemy je do tablicy przez co nie beda powtarzac sie te same buty i bedzie pojawiac
+sie tylko jeden.
+
+baza  danych produktu:
+Nazwa:(Beryl)
+Model:(Nike553White)
+Rozmiar:(40 , 41 , 42, 43, 44 ,45,46,47)
+Ilosc:(np 50)
+Obraz:(.png , .jpg)
+Description:(opis)
+TypButa: (sportowy, trekkingowy , elegancki)
+Firma:(Nike , newbalanc , gucci , armani)
+
+Wyszukaj czy produkt juz jest jezeli jest to dodaj tylko liczbe count do danego produktu
+
+
+
+
+
+
 
