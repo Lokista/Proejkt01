@@ -1,23 +1,17 @@
-import React from 'react'
+import React from "react";
 
 function index({ id }) {
-  return (
-    <div>
-      {id}
-
-    </div>
-  )
+  return <div>{id}</div>;
 }
 
 export const getServerSideProps = async (context) => {
-    const { id } = context.params
+  const { id } = context.params;
 
+  return {
+    props: {
+      id,
+    },
+  };
+};
 
-    return {
-      props: {
-        id,
-      }
-    }
-}
-
-export default index
+export default index;

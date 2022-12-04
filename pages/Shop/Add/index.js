@@ -1,30 +1,17 @@
-import AddComponent from "../../../components/Add/AddComponent"
-import Footer from "../../../components/Footer/Footer"
-import Header from "../../../components/Header/Header"
-
+import AddComponent from "../../../components/Add/AddComponent";
+import Footer from "../../../components/Footer/Footer";
+import Header from "../../../components/Header/Header";
 
 const Add = () => {
-    return(
-    
-    
+  return (
     <div>
-    
-        <Header>
+      <Header></Header>
 
-        </Header>
-        
-        <AddComponent>
+      <AddComponent></AddComponent>
 
+      <Footer></Footer>
+    </div>
+  );
+};
 
-        </AddComponent>
-
-
-        <Footer>
-
-        </Footer>
-
-    </div>)
-
-}
-
-export default Add
+export default Add;

@@ -1,29 +1,18 @@
-import React from 'react'
-import CheckoutComponent from '../../components/Checkout/CheckoutComponent'
-import Footer from '../../components/Footer/Footer'
-import Header from '../../components/Header/Header'
-
-
-
+import React from "react";
+import CheckoutComponent from "../../components/Checkout/CheckoutComponent";
+import Footer from "../../components/Footer/Footer";
+import Header from "../../components/Header/Header";
 
 function Checkout() {
   return (
-    <div className=''>
-            <Header>
+    <div className="">
+      <Header></Header>
 
-            </Header>
+      <CheckoutComponent></CheckoutComponent>
 
-            <CheckoutComponent>
-
-            </CheckoutComponent>
-
-
-            <Footer>
-                
-            </Footer>
-
+      <Footer></Footer>
     </div>
-  )
+  );
 }
 
-export default Checkout
+export default Checkout;

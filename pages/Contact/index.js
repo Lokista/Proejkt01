@@ -1,29 +1,19 @@
-import React from 'react'
-import CheckoutComponent from '../../components/Checkout/CheckoutComponent'
-import { ContactComponent } from '../../components/Contact/ContactComponent'
-import Footer from '../../components/Footer/Footer'
-import Header from '../../components/Header/Header'
-
-
-
+import React from "react";
+import CheckoutComponent from "../../components/Checkout/CheckoutComponent";
+import { ContactComponent } from "../../components/Contact/ContactComponent";
+import Footer from "../../components/Footer/Footer";
+import Header from "../../components/Header/Header";
 
 function Checkout() {
   return (
-    <div className=''>
-            <Header>
+    <div className="">
+      <Header></Header>
 
-            </Header>
+      <ContactComponent></ContactComponent>
 
-            <ContactComponent>
-
-            </ContactComponent>
-
-            <Footer>
-                
-            </Footer>
-
+      <Footer></Footer>
     </div>
-  )
+  );
 }
 
-export default Checkout
+export default Checkout;

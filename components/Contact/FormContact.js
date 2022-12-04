@@ -1,9 +1,3 @@
-
 export function FormContact() {
-
-    return(
-        <div>
-
-        </div>
-    )
+  return <div></div>;
 }
