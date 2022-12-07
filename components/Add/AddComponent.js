@@ -22,6 +22,7 @@ function AddComponent() {
   });
 
   const addCategory = (e) => {
+    // add category to the list
     if (shoesData.category == null) {
       setShoesData({ ...shoesData, category: [e] });
       return;
@@ -36,6 +37,7 @@ function AddComponent() {
     }
   };
   const addType = (e) => {
+    // add type to the list
     if (shoesData.type == null) {
       setShoesData({ ...shoesData, type: [e] });
       return;
@@ -51,6 +53,7 @@ function AddComponent() {
   };
 
   const [shoesData, setShoesData] = useState({
+    // state for shoes data
     owner: user.email,
     name: "",
     model: "",
@@ -65,13 +68,15 @@ function AddComponent() {
   });
 
   const addNewData = (e) => {
+    // add new data to the state
     e.preventDefault();
     getNextId().then((fr) => {
+      //get next id from firebase and made promise
       console.log("to ja", fr);
       setDoc(doc(dbF, "products", `${fr}`), {
         id: fr,
         owner: shoesData.owner,
-        name: shoesData.name,
+        title: shoesData.name,
         model: shoesData.model,
         description: shoesData.description,
         size: shoesData.size,
@@ -101,8 +106,9 @@ function AddComponent() {
   };
 
   const addImage = (e) => {
+    // add image to the state
     const file = e.target.files[0];
-    const reader = new FileReader();
+    const reader = new FileReader(); // read file
     if (e.target.files[0]) {
       reader.readAsDataURL(e.target.files[0]);
     }
@@ -126,47 +132,47 @@ function AddComponent() {
         <div className="relative    flex flex-row justify-between space-x-2 ">
           <div className="">
             {/* NAME */}
-            <div className="  text-center">
-              <label className=" text-red-500">Product name</label>
+            <div className="  text-left text-xl flex flex-col ">
+              <label className=" text-red-500 font-semibold">Product name:</label>
               <input
+              placeholder="type your name..."
                 type="text "
-                className="rounded-md bg-gray-100 text-gray-900 outline-none"
+                className="rounded-md bg-gray-100 text-gray-900 outline-none pl-4"
                 onChange={(e) =>
                   setShoesData({ ...shoesData, name: e.target.value })
                 }
               ></input>
             </div>
             <br></br>
-            <br></br>
             {/* MODEL */}
-            <div className="  text-center">
-              <label className=" text-red-500">Product model</label>
+            <div className="  text-left text-xl flex flex-col ">
+              <label className=" text-red-500 font-semibold">Product model:</label>
               <input
+              placeholder="type your model..."
                 type="text "
-                className="rounded-md bg-gray-100 text-gray-900 outline-none"
+                className="rounded-md bg-gray-100 text-gray-900 outline-none pl-4"
                 onChange={(e) =>
                   setShoesData({ ...shoesData, model: e.target.value })
                 }
               ></input>
             </div>
             <br></br>
-            <br></br>
             {/* BRAND */}
-            <div className="  text-center">
-              <label className=" text-red-500">Brand name</label>
+            <div className="  text-left text-xl flex flex-col ">
+              <label className=" text-red-500 font-semibold">Brand name:</label>
               <input
+              placeholder="type your brand..."
                 type="text "
-                className="rounded-md bg-gray-100  outline-none text-gray-900"
+                className="rounded-md bg-gray-100  outline-none pl-4 text-gray-900"
                 onChange={(e) =>
                   setShoesData({ ...shoesData, brand: e.target.value })
                 }
               ></input>
             </div>
             <br></br>
-            <br></br>
             {/* SIZE */}
-            <div className="  text-center">
-              <label className=" text-red-500">What size </label>
+            <div className="  text-left text-xl flex flex-col ">
+              <label className=" text-red-500 font-semibold">What size: </label>
               <select
                 className="bg-elementC outline-gray-300 outline-1 outline "
                 onChange={(e) =>
@@ -193,42 +199,36 @@ function AddComponent() {
               </select>
             </div>
             {/* COUNT */}
-            <div className="  text-center">
-              <label className=" text-red-500">How many</label>
+            <div className="  text-left text-xl flex flex-col ">
+              <label className=" text-red-500 font-semibold">How many:</label>
               <input
+              placeholder="type your count(1,20,100...)"
                 type="number"
-                className="text-gray-900"
+                className="text-gray-900 outline-none pl-4 rounded-md bg-gray-100"
                 onChange={(e) =>
                   setShoesData({ ...shoesData, count: e.target.value })
                 }
               ></input>
             </div>
             {/* IMAGE */}
-            <div className="  text-center">
-              <label className=" text-red-500">Add image</label>
+            <div className="  text-left text-xl flex flex-col ">
+              <label className=" text-red-500 font-semibold">Add image:</label>
               <input
                 type="file"
                 onChange={addImage}
                 ref={imageInput}
-                className="text-gray-900"
+                className="text-gray-900 outline-none pl-4 rounded-md"
+                
               />
-              {shoesData.image && (
-                <div className="flex justify-center">
-                  <img
-                    src={shoesData.image}
-                    alt="shoe"
-                    className="w-20 h-20 object-cover"
-                  />
-                </div>
-              )}
             </div>
 
             {/* PRICE */}
-            <div className="text-center">
-              <label className="text-red-500">Price</label>
+            <div className="text-left text-xl flex flex-col ">
+              <label className="text-red-500 font-semibold">Price:</label>
               <input
+              placeholder="type your price in dollars(100,200,300...)"
                 type="number"
-                className="text-gray-900"
+                className="text-gray-900 outline-none pl-4 rounded-md bg-gray-100"
                 onChange={(e) =>
                   setShoesData({ ...shoesData, price: e.target.value })
                 }
@@ -236,10 +236,10 @@ function AddComponent() {
             </div>
           </div>
           {/* Second flex div */}
-          <div className="w-[400px] flex flex-col">
-            {/* categories */}
+          <div className="w-[400px] flex flex-col text-xl">
+            {/* delete/show categories */}
             <div className="relative p-5  text-center">
-              <label className="text-white font-semibold">
+              <label className="text-red-500  font-semibold">
                 Your categories
               </label>
               <div className="flex bg-zinc-800 rounded-md p-1 space-x-3 flex-wrap">
@@ -247,7 +247,14 @@ function AddComponent() {
                   shoesData.category.map((shoe) => {
                     return (
                       <div className="flex">
-                        <label>{shoe}</label>
+                        <label onClick={(e) =>
+                            setShoesData({
+                              ...shoesData,
+                              category: shoesData.category.filter(
+                                (item) => item !== shoe
+                              ),
+                            })
+                          } className="hover:text-red-500 transition-colors duration-500 cursor-pointer">{shoe}</label>
                         <div
                           className=" h-3"
                           onClick={(e) =>
@@ -266,9 +273,9 @@ function AddComponent() {
                   })}
               </div>
             </div>
-            {/* type */}
-            <div className="relative p-5  text-center">
-              <label className="text-white font-semibold">
+            {/* delete/show type */}
+            <div className="relative p-5  text-center ">
+              <label className="text-red-500 font-semibold ">
                 Your type of shoe
               </label>
               <div className="flex bg-zinc-800 rounded-md p-1 space-x-3 flex-wrap">
@@ -276,7 +283,14 @@ function AddComponent() {
                   shoesData.type.map((shoe) => {
                     return (
                       <div className="flex">
-                        <label>{shoe}</label>
+                        <label onClick={(e) =>
+                            setShoesData({
+                              ...shoesData,
+                              type: shoesData.type.filter(
+                                (item) => item !== shoe
+                              ),
+                            })
+                          }  className="hover:text-red-500 transition-colors duration-500 cursor-pointer">{shoe}</label>
                         <div
                           className=" h-3"
                           onClick={(e) =>
@@ -295,35 +309,53 @@ function AddComponent() {
                   })}
               </div>
             </div>
+            <div className="">
+              <label className=" font-semibold text-red-500"> </label>
+            {shoesData.image && (
+                <div className="flex justify-center">
+                  <img
+                    src={shoesData.image}
+                    alt="shoe"
+                    className="w-20 h-20 object-cover"
+                  />
+                </div>
+              )}
+
+            </div>
           </div>
           {/* third flex div */}
-          <div className=" ">
-            {/* category */}
+          <div className=" text-xl">
+            {/* adding category */}
             <div className="w-[400px] text-center">
-              <label className="text-white font-semibold">
+              <label className="text-red-500 font-semibold ">
                 Pick category that describe your shoes
               </label>
               <div className="flex bg-zinc-800 flex-wrap space-x-3">
                 {shoeCategory.map((shoe) => {
                   return (
-                    <div className="flex" onClick={(e) => addCategory(shoe)}>
-                      <label>{shoe}</label>
+                    <div className="flex" >
+                      <label onClick={(e) => addCategory(shoe)} className="hover:text-green-500 transition-colors duration-500 cursor-pointer">{shoe}</label>
+                      <div onClick={(e) => addCategory(shoe)} className="h-0 bg-red-300 relative top-2 left-0.5">
                       <Svg need="add" />
+                      </div>
                     </div>
                   );
                 })}
               </div>
             </div>
-            <div className="w-[400px] text-center">
-              <label className="text-white font-semibold">
+            {/* adding type */}
+            <div className="w-[400px] text-center"> 
+              <label className="text-red-500 font-semibold">
                 Pick type that describe your shoes
               </label>
               <div className="flex bg-zinc-800 flex-wrap space-x-3">
-                {shoeType.map((shoe) => {
+                {shoeType.map((shoe) => { 
                   return (
-                    <div className="flex" onClick={(e) => addType(shoe)}>
-                      <label>{shoe}</label>
+                    <div className="flex" >
+                      <label onClick={(e) => addType(shoe)} className="hover:text-green-500 transition-colors duration-500 cursor-pointer" >{shoe}</label>
+                      <div onClick={(e) => addType(shoe)} className="h-0 bg-red-300 relative top-2 left-0.5"> 
                       <Svg need="add" />
+                      </div>
                     </div>
                   );
                 })}
@@ -333,7 +365,7 @@ function AddComponent() {
         </div>
         <div></div>
         <div className="text-center flex flex-col">
-          <label className="text-xl font-semibold  pb-3 tracking-widest mt-5  pr-[150px] pt-3">
+          <label className="text-xl font-semibold text-red-500 pb-3 tracking-widest mt-5  pr-[150px] pt-3">
             Describe:
           </label>
           <textarea
