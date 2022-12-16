@@ -13,6 +13,9 @@ export function ContactComponent() {
   } = useForm({
     resolver: yupResolver(contactSchema),
   });
+  useEffect(() => {
+    console.log("data" , data)
+  })
 
   const [data, setData] = useState({
     email: "",
@@ -43,7 +46,11 @@ export function ContactComponent() {
           </label>
           <input
             name="email"
-            {...register("email")}
+            {...register("email", {
+              onChange: (e) => {
+                setData({ ...data, email: e.target.value });
+              },
+            })}
             type="text"
             className={`text-gray-700 bg-gray-100 sm:w-[350px] w-[300px] rounded-md h-[35px] pl-4 outline-none ml-auto mr-auto`}
             placeholder="Your mail here..."
@@ -56,7 +63,11 @@ export function ContactComponent() {
 
           <input
             name="reason"
-            {...register("reason")}
+            {...register("reason" , {
+              onChange: (e) => {
+                setData({ ...data, reason: e.target.value });
+              },
+            })}
             type="text"
             className={`text-gray-700 bg-gray-100 w-[300px] sm:w-[350px] rounded-md h-[35px] pl-4 outline-none ml-auto mr-auto`}
             placeholder="what is your reason..."
@@ -68,7 +79,11 @@ export function ContactComponent() {
           </label>
           <textarea
             name="describe"
-            {...register("describe")}
+            {...register("describe" , {
+              onChange: (e) => {
+                setData({ ...data, describe: e.target.value });
+              },
+            })}
             rows="5"
             cols="25"
             type="text"

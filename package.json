@@ -13,6 +13,7 @@
     "@hookform/resolvers": "^2.9.10",
     "@reduxjs/toolkit": "^1.8.1",
     "currency-formatter": "^1.5.9",
+    "file-type": "^18.0.0",
     "firebase": "^9.8.1",
     "next": "12.1.5",
     "react": "18.0.0",

@@ -6,25 +6,64 @@ import useFindNextId from "../CustomHooks/useFindNextId";
 import Svg from "../Svg";
 import { getNextId } from "../CustomHooks/useFindNextId";
 import { shoeSize, shoeType, shoeCategory } from "../reusable/shoesInfo";
+import { addSchema } from "../Validation/AddSchema";
+import { useForm, useWatch } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 function AddComponent() {
   const nextIndex = useFindNextId();
   const [hide, setHide] = useState(false);
-  const imageInput = useRef(null);
   const sizeRef = useRef(null);
   const { user, logout } = useAuth();
-  const keepNextIndex = () => {
-    if ((nextIndex = 0)) return;
-  };
+  const [shoeTypeArray, setShoeTypeArray] = useState();
+  const [shoeCategoryArray, setShoeCategoryArray] = useState();
+
+  const uid = () =>
+    // simple uid generator
+    String(Date.now().toString(32) + Math.random().toString(16)).replace(
+      /\./g,
+      ""
+    );
+
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(addSchema),
+  });
+  useEffect(() => {
+    setShoeCategoryArray(shoeCategory);
+    setShoeTypeArray(shoeType);
+  }, []);
+
   useEffect(() => {
     console.log(shoesData);
-    console.log("co to jest nextIndex ", nextIndex);
   });
+  const delCategory = (item) => {
+    // delete category from the list
+    console.log("to jest e ", item);
+    setShoeCategoryArray([...shoeCategoryArray, item]);
+    setShoesData({
+      ...shoesData,
+      category: shoesData.category.filter((cat) => cat !== item),
+    });
+  };
+  const delType = (item) => {
+    // delete type from the list
+    console.log("to jest e ", item);
+    setShoesData({
+      ...shoesData,
+      type: shoesData.type.filter((cat) => cat !== item),
+    });
+    setShoeTypeArray([...shoeTypeArray, item]);
+  };
 
   const addCategory = (e) => {
     // add category to the list
     if (shoesData.category == null) {
       setShoesData({ ...shoesData, category: [e] });
+      setShoeCategoryArray(shoeCategoryArray.filter((cat) => cat !== e));
       return;
     }
     if (shoesData.category.includes(e)) {
@@ -34,12 +73,14 @@ function AddComponent() {
         ...shoesData,
         category: [...shoesData.category, e],
       });
+      setShoeCategoryArray(shoeCategoryArray.filter((cat) => cat !== e));
     }
   };
   const addType = (e) => {
     // add type to the list
     if (shoesData.type == null) {
       setShoesData({ ...shoesData, type: [e] });
+      setShoeTypeArray(shoeTypeArray.filter((item) => item !== e));
       return;
     }
     if (shoesData.type.includes(e)) {
@@ -49,13 +90,14 @@ function AddComponent() {
         ...shoesData,
         type: [...shoesData.type, e],
       });
+      setShoeTypeArray(shoeTypeArray.filter((item) => item !== e));
     }
   };
 
   const [shoesData, setShoesData] = useState({
     // state for shoes data
     owner: user.email,
-    name: "",
+    title: "",
     model: "",
     description: "",
     size: "",
@@ -67,16 +109,15 @@ function AddComponent() {
     type: null,
   });
 
-  const addNewData = (e) => {
+  const addNewData = () => {
     // add new data to the state
-    e.preventDefault();
     getNextId().then((fr) => {
       //get next id from firebase and made promise
       console.log("to ja", fr);
       setDoc(doc(dbF, "products", `${fr}`), {
         id: fr,
         owner: shoesData.owner,
-        title: shoesData.name,
+        title: shoesData.title,
         model: shoesData.model,
         description: shoesData.description,
         size: shoesData.size,
@@ -88,21 +129,6 @@ function AddComponent() {
         type: shoesData.type,
       });
     });
-    console.log(shoesData);
-    // setDoc(doc(dbF , 'products' , `${nextIndex}`), {
-    //       id: shoesData.id,
-    //       owner: shoesData.owner,
-    //       name: shoesData.name,
-    //       model: shoesData.model,
-    //       description: shoesData.description,
-    //       size: shoesData.size,
-    //       count: shoesData.count,
-    //       price: shoesData.price,
-    //       image: shoesData.image,
-    //       brand: shoesData.brand,
-    //       category: shoesData.category,
-    //       type: shoesData.type
-    //   })
   };
 
   const addImage = (e) => {
@@ -116,58 +142,79 @@ function AddComponent() {
       setShoesData({ ...shoesData, image: reader.result });
     };
   };
+
   const deleteImage = () => {
     setShoesData({ ...shoesData, image: null });
   };
 
   return (
-    <div className=" bg-backgr">
+    <div className="relative bg-backgr text-center content-center center item-center 
+    justify-center origin-center object-center place-items-center snap-center">
       <h1 className=" text-5xl font-extrabold tracking-widest text-red-500 text-center mt-5">
         Add product
       </h1>
       <form
-        className="bg-elementC rounded-xl sm:m-6 md:m-8 lg:m-12 p-12 "
-        onSubmit={(e) => addNewData(e)}
+        className=" relative bg-elementC rounded-xl sm:m-6 md:m-8 lg:m-12 p-12 "
+        onSubmit={handleSubmit(addNewData)}
       >
-        <div className="relative    flex flex-row justify-between space-x-2 ">
+        <div className="relative flex flex-row justify-between space-x-2 ">
           <div className="">
             {/* NAME */}
             <div className="  text-left text-xl flex flex-col ">
-              <label className=" text-red-500 font-semibold">Product name:</label>
+              <label className=" text-red-500 font-semibold">
+                Product name:
+              </label>
               <input
-              placeholder="type your name..."
+                placeholder="type your name..."
                 type="text "
                 className="rounded-md bg-gray-100 text-gray-900 outline-none pl-4"
-                onChange={(e) =>
-                  setShoesData({ ...shoesData, name: e.target.value })
-                }
+                {...register("title", {
+                  onChange: (e) => {
+                    setShoesData({ ...shoesData, title: e.target.value });
+                  },
+                })}
               ></input>
+              <span className="mb-8 text-sm text-red-500">
+                {errors?.title?.message}
+              </span>
             </div>
             <br></br>
             {/* MODEL */}
             <div className="  text-left text-xl flex flex-col ">
-              <label className=" text-red-500 font-semibold">Product model:</label>
+              <label className=" text-red-500 font-semibold">
+                Product model:
+              </label>
               <input
-              placeholder="type your model..."
+                placeholder="type your model..."
                 type="text "
                 className="rounded-md bg-gray-100 text-gray-900 outline-none pl-4"
-                onChange={(e) =>
-                  setShoesData({ ...shoesData, model: e.target.value })
-                }
+                {...register("model", {
+                  onChange: (e) => {
+                    setShoesData({ ...shoesData, model: e.target.value });
+                  },
+                })}
               ></input>
+              <span className="mb-8 text-sm text-red-500">
+                {errors?.model?.message}
+              </span>
             </div>
             <br></br>
             {/* BRAND */}
             <div className="  text-left text-xl flex flex-col ">
               <label className=" text-red-500 font-semibold">Brand name:</label>
               <input
-              placeholder="type your brand..."
+                placeholder="type your brand..."
                 type="text "
                 className="rounded-md bg-gray-100  outline-none pl-4 text-gray-900"
-                onChange={(e) =>
-                  setShoesData({ ...shoesData, brand: e.target.value })
-                }
+                {...register("brand", {
+                  onChange: (e) => {
+                    setShoesData({ ...shoesData, brand: e.target.value });
+                  },
+                })}
               ></input>
+              <span className="mb-8 text-sm text-red-500">
+                {errors?.brand?.message}
+              </span>
             </div>
             <br></br>
             {/* SIZE */}
@@ -175,9 +222,14 @@ function AddComponent() {
               <label className=" text-red-500 font-semibold">What size: </label>
               <select
                 className="bg-elementC outline-gray-300 outline-1 outline "
-                onChange={(e) =>
-                  setShoesData({ ...shoesData, size: e.target.value })
-                }
+                // onChange={(e) =>
+                //   setShoesData({ ...shoesData, size: e.target.value })
+                // }
+                {...register("size", {
+                  onChange: (e) => {
+                    setShoesData({ ...shoesData, size: e.target.value });
+                  },
+                })}
                 onClick={(e) => {
                   setHide(!hide);
                 }}
@@ -188,51 +240,68 @@ function AddComponent() {
                     <option
                       className={` bg-elementC black `}
                       value={shoe.value}
-                      onChange={(e) => {
-                        console.log("dzialam");
-                      }}
                     >
                       {shoe.label}
                     </option>
                   );
                 })}
               </select>
+              <span className="mb-8 text-sm text-red-500">
+                {errors?.size?.message}
+              </span>
             </div>
             {/* COUNT */}
             <div className="  text-left text-xl flex flex-col ">
               <label className=" text-red-500 font-semibold">How many:</label>
               <input
-              placeholder="type your count(1,20,100...)"
+                placeholder="type your count(1,20,100...)"
                 type="number"
                 className="text-gray-900 outline-none pl-4 rounded-md bg-gray-100"
-                onChange={(e) =>
-                  setShoesData({ ...shoesData, count: e.target.value })
-                }
+                {...register("count", {
+                  onChange: (e) => {
+                    setShoesData({ ...shoesData, count: e.target.value });
+                  },
+                })}
               ></input>
+              <span className="mb-8 text-sm text-red-500">
+                {errors?.count?.message}
+              </span>
             </div>
             {/* IMAGE */}
             <div className="  text-left text-xl flex flex-col ">
               <label className=" text-red-500 font-semibold">Add image:</label>
               <input
                 type="file"
-                onChange={addImage}
-                ref={imageInput}
+                // onChange={addImage}
+                {...register("image", {
+                  onChange: (e) => {
+                    addImage(e);
+                  },
+                })}
+                // ref={imageInput}
                 className="text-gray-900 outline-none pl-4 rounded-md"
-                
               />
+              <span className="mb-8 text-sm text-red-500">
+                {errors?.image?.message}
+              </span>
             </div>
 
             {/* PRICE */}
             <div className="text-left text-xl flex flex-col ">
               <label className="text-red-500 font-semibold">Price:</label>
               <input
-              placeholder="type your price in dollars(100,200,300...)"
+                placeholder="type your price in dollars(100,200,300...)"
                 type="number"
                 className="text-gray-900 outline-none pl-4 rounded-md bg-gray-100"
-                onChange={(e) =>
-                  setShoesData({ ...shoesData, price: e.target.value })
-                }
+                {...register("price", {
+                  onChange: (e) => {
+                    setShoesData({ ...shoesData, price: e.target.value });
+                  },
+                })}
               ></input>
+              <span className="mb-8 text-sm text-red-500">
+                {errors?.price?.message}
+              </span>
             </div>
           </div>
           {/* Second flex div */}
@@ -246,25 +315,29 @@ function AddComponent() {
                 {shoesData.category != null &&
                   shoesData.category.map((shoe) => {
                     return (
-                      <div className="flex">
-                        <label onClick={(e) =>
-                            setShoesData({
-                              ...shoesData,
-                              category: shoesData.category.filter(
-                                (item) => item !== shoe
-                              ),
-                            })
-                          } className="hover:text-red-500 transition-colors duration-500 cursor-pointer">{shoe}</label>
+                      <div key={uid()} className="flex">
+                        <label
+                          onClick={(e) => delCategory(shoe)}
+                          // {...register("category" , {
+                          //   onClick: (e) => {
+                          //     setShoesData({
+                          //       shoesData,
+                          //       category: e.target.value
+                          //     })
+                          //   }
+                          // }
+                          // )}
+                          className="hover:text-red-500 transition-colors duration-500 cursor-pointer"
+                        >
+                          {shoe}
+                        </label>
+                        <span className="mb-8 text-sm text-red-500">
+                          {errors?.category?.message}
+                        </span>
+
                         <div
                           className=" h-3"
-                          onClick={(e) =>
-                            setShoesData({
-                              ...shoesData,
-                              category: shoesData.category.filter(
-                                (item) => item !== shoe
-                              ),
-                            })
-                          }
+                          onClick={(e) => delCategory(shoe)}
                         >
                           <Svg need="delete" />
                         </div>
@@ -282,26 +355,14 @@ function AddComponent() {
                 {shoesData.type != null &&
                   shoesData.type.map((shoe) => {
                     return (
-                      <div className="flex">
-                        <label onClick={(e) =>
-                            setShoesData({
-                              ...shoesData,
-                              type: shoesData.type.filter(
-                                (item) => item !== shoe
-                              ),
-                            })
-                          }  className="hover:text-red-500 transition-colors duration-500 cursor-pointer">{shoe}</label>
-                        <div
-                          className=" h-3"
-                          onClick={(e) =>
-                            setShoesData({
-                              ...shoesData,
-                              type: shoesData.type.filter(
-                                (item) => item !== shoe
-                              ),
-                            })
-                          }
+                      <div key={uid()} className="flex">
+                        <label
+                          onClick={(e) => delType(shoe)}
+                          className="hover:text-red-500 transition-colors duration-500 cursor-pointer"
                         >
+                          {shoe}
+                        </label>
+                        <div className=" h-3" onClick={(e) => delType(shoe)}>
                           <Svg need="delete" />
                         </div>
                       </div>
@@ -309,18 +370,20 @@ function AddComponent() {
                   })}
               </div>
             </div>
-            <div className="">
-              <label className=" font-semibold text-red-500"> </label>
-            {shoesData.image && (
+            <div className=" text-center">
+              <label className="relative font-semibold text-red-500 ">
+                {" "}
+                Your preview image:
+              </label>
+              {shoesData.image && (
                 <div className="flex justify-center">
                   <img
                     src={shoesData.image}
                     alt="shoe"
-                    className="w-20 h-20 object-cover"
+                    className="w-40 h-40 object-cover"
                   />
                 </div>
               )}
-
             </div>
           </div>
           {/* third flex div */}
@@ -331,12 +394,20 @@ function AddComponent() {
                 Pick category that describe your shoes
               </label>
               <div className="flex bg-zinc-800 flex-wrap space-x-3">
-                {shoeCategory.map((shoe) => {
+                {shoeCategoryArray?.map((shoe) => {
                   return (
-                    <div className="flex" >
-                      <label onClick={(e) => addCategory(shoe)} className="hover:text-green-500 transition-colors duration-500 cursor-pointer">{shoe}</label>
-                      <div onClick={(e) => addCategory(shoe)} className="h-0 bg-red-300 relative top-2 left-0.5">
-                      <Svg need="add" />
+                    <div key={uid()} className="flex">
+                      <label
+                        onClick={(e) => addCategory(shoe)}
+                        className="hover:text-green-500 transition-colors duration-500 cursor-pointer"
+                      >
+                        {shoe}
+                      </label>
+                      <div
+                        onClick={(e) => addCategory(shoe)}
+                        className="h-0 bg-red-300 relative top-2 left-0.5"
+                      >
+                        <Svg need="add" />
                       </div>
                     </div>
                   );
@@ -344,17 +415,25 @@ function AddComponent() {
               </div>
             </div>
             {/* adding type */}
-            <div className="w-[400px] text-center"> 
+            <div className="w-[400px] text-center">
               <label className="text-red-500 font-semibold">
                 Pick type that describe your shoes
               </label>
               <div className="flex bg-zinc-800 flex-wrap space-x-3">
-                {shoeType.map((shoe) => { 
+                {shoeTypeArray?.map((shoe) => {
                   return (
-                    <div className="flex" >
-                      <label onClick={(e) => addType(shoe)} className="hover:text-green-500 transition-colors duration-500 cursor-pointer" >{shoe}</label>
-                      <div onClick={(e) => addType(shoe)} className="h-0 bg-red-300 relative top-2 left-0.5"> 
-                      <Svg need="add" />
+                    <div key={uid()} className="flex">
+                      <label
+                        onClick={(e) => addType(shoe)}
+                        className="hover:text-green-500 transition-colors duration-500 cursor-pointer"
+                      >
+                        {shoe}
+                      </label>
+                      <div
+                        onClick={(e) => addType(shoe)}
+                        className="h-0 bg-red-300 relative top-2 left-0.5"
+                      >
+                        <Svg need="add" />
                       </div>
                     </div>
                   );
@@ -369,16 +448,20 @@ function AddComponent() {
             Describe:
           </label>
           <textarea
-            onChange={(e) =>
-              setShoesData({ ...shoesData, description: e.target.value })
-            }
-            name="describe"
+            {...register("description", {
+              onChange: (e) => {
+                setShoesData({ ...shoesData, description: e.target.value });
+              },
+            })}
             rows="5"
             cols="25"
             type="text"
             className={`text-gray-900 bg-gray-100  rounded-md  pl-4 pb-1 outline-none w-[300px] sm:w-[500px] ml-auto mr-auto`}
             placeholder="describe your problem..."
           ></textarea>
+          <span className="mb-8 text-sm text-red-500">
+            {errors?.description?.message}
+          </span>
         </div>
 
         <div className=" text-center">
