@@ -29,6 +29,8 @@ Firma:(Nike , newbalanc , gucci , armani)
 -Wyszukaj czy produkt juz jest jezeli jest to dodaj tylko liczbe count do danego produktu
 
 -zmienic baze danych z ze zwyklego id na automatyczne id i przerefaktorowac reszte kodu pod to
+-dodanie statusu zakupionego produktu
+-dodanie formularza przedmiotow do zakupienia gdzie podaje sie adress forme platnosci itp
 
 naprawic monitor flickering smart access memory SAM in bios
 

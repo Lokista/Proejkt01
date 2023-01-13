@@ -45,13 +45,13 @@ function ProductData({ id, title, description, price, count, image }) {
           {title}{" "}
         </p>
       </Link>
-      <p className=" text-md md:text-xl"> {description} </p>
+      <p className=" text-md md:text-xl break-words"> {description} </p>
       <div className="font-bold text-xl">
         <Currency quantity={price} currency="usd"></Currency>
       </div>
       <button
         onClick={addItemToBasket}
-        className=" h-12 rounded-xl bg-red-500 m-4 text-xl font-semibold hover:scale-105 transition-colors duration-700 hover:bg-red-400"
+        className="h-12 rounded-xl bg-red-500 m-4 text-xl font-semibold hover:scale-105 transition-colors duration-700 hover:bg-red-400"
       >
         Add to Basket
       </button>
