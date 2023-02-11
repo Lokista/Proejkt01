@@ -5,8 +5,8 @@ import { data } from "autoprefixer";
 
 function Feedback({ products }) {
   return (
-    <div className="relative items-center justify-center text-center bg-elementC rounded-xl m-[30px] ml-auto mr-auto md:w-auto lg:w-[1850px]">
-      <div className="relative grid grid-flow-row-dense lg:grid-cols-2 2xl:grid-cols-3">
+    <div className="relative items-center justify-center text-center bg-elementC rounded-xl sm:m-6 md:m-8 lg:m-12 ">
+      <div className="relative grid grid-flow-row-dense grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 ">
         {products?.map(({ id, title, description, price, count, image }) => (
           <ProductData
             id={id}

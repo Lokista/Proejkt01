@@ -8,13 +8,12 @@ import {
 import { useEffect, useState } from "react";
 import { auth } from "/auth/firebase";
 
-const AuthContext = createContext({});
+const AuthContext = createContext({}); // Create a context object
 
-export const useAuth = () => useContext(AuthContext);
+export const useAuth = () => useContext(AuthContext); // Create a custom hook to use the context
 
-export const AuthContextProvider = ({ children }) => {
+export const AuthContextProvider = ({ children }) => { // Create a provider component
   const [user, setUser] = useState(null);
-
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

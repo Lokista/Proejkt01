@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import { contactSchema } from "../Validation/ContactSchema";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { addDoc, getDocs, setDoc } from "firebase/firestore";
+import { colContactRef } from "../../auth/firebase";
 
 export function ContactComponent() {
   const {
@@ -13,9 +15,11 @@ export function ContactComponent() {
   } = useForm({
     resolver: yupResolver(contactSchema),
   });
+
+  var forma = document.getElementsByName('contact-form')[0]
   useEffect(() => {
-    console.log("data" , data)
-  })
+    console.log("data", data);
+  });
 
   const [data, setData] = useState({
     email: "",
@@ -24,7 +28,12 @@ export function ContactComponent() {
   });
 
   const onSubmit = (e) => {
-    console.log(e);
+    addDoc(colContactRef, {
+      email: data.email,
+      reason: data.reason,
+      describe: data.describe
+    });
+    forma.reset();
   };
 
   return (
@@ -37,6 +46,7 @@ export function ContactComponent() {
         will try our best to help you
       </div>
       <form
+       name = "contact-form"
         onSubmit={handleSubmit(onSubmit)}
         className=" relative flex flex-col text-red-500 items-center justify-center text-center center mt-5"
       >
@@ -63,7 +73,7 @@ export function ContactComponent() {
 
           <input
             name="reason"
-            {...register("reason" , {
+            {...register("reason", {
               onChange: (e) => {
                 setData({ ...data, reason: e.target.value });
               },
@@ -79,7 +89,7 @@ export function ContactComponent() {
           </label>
           <textarea
             name="describe"
-            {...register("describe" , {
+            {...register("describe", {
               onChange: (e) => {
                 setData({ ...data, describe: e.target.value });
               },

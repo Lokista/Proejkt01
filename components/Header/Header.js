@@ -90,9 +90,14 @@ function Header() {
             <div className="flex">
               <Link href="/Checkout" passHref>
                 <div className="relative flex w-20">
-                  <ShoppingCartIcon className=" h-15 w-14 transistion-color duration-700 cursor-pointer"></ShoppingCartIcon>
+                  <ShoppingCartIcon className=" 
+                  h-15 w-14 transistion-color
+                   duration-700 cursor-pointer">
+
+                   </ShoppingCartIcon>
                   <div
-                    className="absolute text-gray-100 left-12 font-bold text-xl w-4 text-center
+                    className="absolute text-gray-100 left-12 
+                    font-bold text-xl w-4 text-center
                   bg-red-700 rounded-full "
                   >
                     {" "}
@@ -103,13 +108,17 @@ function Header() {
 
               <div
                 onClick={() => {
-                  logout();
                   router.push("/Login");
+                  logout();
+                  
                 }}
-                className="hidden lg:flex group bg-red-500 p-2 hover:scale-105 rounded-xl"
+                className="hidden lg:flex group bg-red-500 p-2 
+                hover:scale-105 rounded-xl"
               >
-                <LogoutIcon className="h-15 w-6  transistion-color duration-700 cursor-pointer "></LogoutIcon>
-                <p className="hidden lg:flex transistion-color duration-700 cursor-pointer scale-100 ">
+                <LogoutIcon className="h-15 w-6  transistion-color 
+                duration-700 cursor-pointer "></LogoutIcon>
+                <p className="hidden lg:flex transistion-color 
+                duration-700 cursor-pointer scale-100 ">
                   Logout
                 </p>
               </div>
@@ -117,9 +126,12 @@ function Header() {
           ) : (
             <>
               <Link href="/Login" passHref>
-                <div className="hidden lg:flex group bg-gray-500 p-2 hover:scale-105 rounded-l-xl  ">
-                  <LoginIcon className="h-15 w-6  transistion-color duration-700 cursor-pointer "></LoginIcon>
-                  <p className="hidden lg:flex transistion-color duration-700 cursor-pointer scale-100 ">
+                <div className="hidden lg:flex group bg-gray-500 
+                p-2 hover:scale-105 rounded-l-xl  ">
+                  <LoginIcon className="h-15 w-6  transistion-color 
+                  duration-700 cursor-pointer "></LoginIcon>
+                  <p className="hidden lg:flex transistion-color 
+                  duration-700 cursor-pointer scale-100 ">
                     Login
                   </p>
                 </div>
@@ -127,10 +139,13 @@ function Header() {
 
               <Link href="/SignUp" passHref>
                 <div
-                  className={` hidden lg:flex group  bg-red-500 p-2 hover:scale-105 rounded-r-xl  `}
+                  className={` hidden lg:flex group  bg-red-500 p-2 
+                  hover:scale-105 rounded-r-xl  `}
                 >
-                  <LogoutIcon className="h-15 w-6 transistion-color duration-700 cursor-pointer"></LogoutIcon>
-                  <p className="hidden text-white lg:flex transistion-color duration-700 cursor-pointer scale-100">
+                  <LogoutIcon className="h-15 w-6 transistion-color duration-700 
+                  cursor-pointer"></LogoutIcon>
+                  <p className="hidden text-white lg:flex transistion-color 
+                  duration-700 cursor-pointer scale-100">
                     Sign up
                   </p>
                 </div>

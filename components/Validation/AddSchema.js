@@ -1,4 +1,5 @@
 import * as yup from "yup";
+import { shoeSize, shoeType, shoeCategory } from "../reusable/shoesInfo";
 
 const maxFileSize = 10;
 
@@ -45,6 +46,9 @@ export const addSchema = yup.object().shape({
       },
     }),
   brand: yup.string().required("Brand is required"),
-  // category: yup.string().required("Category is required"),
+  // category: yup.array().of(
+  //   yup.string().oneOf(
+  //     [...shoeCategory],
+  //   ).required("Category is required"))
   // type: yup.string().required("Type is required"),
 });

@@ -5,10 +5,12 @@ import { useSelector } from "react-redux";
 import Currency from "react-currency-formatter";
 import CheckoutTrans from "./CheckoutTrans";
 
+
 function CheckoutComponent() {
   const items = useSelector(selectItems);
 
   const [isAdded, setIsAdded] = useState(false);
+  
   useEffect(() => {
     console.log(items.length);
     if (items.length >= 1) {
@@ -17,7 +19,6 @@ function CheckoutComponent() {
       setIsAdded(false);
     }
   }, [items.length]);
-
   return (
     <div className=" text-center">
       <h1 className=" text-3xl font-bold text-red-500 tracking-wider">

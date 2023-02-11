@@ -25,6 +25,7 @@ function AddComponent() {
       ""
     );
 
+
   const {
     handleSubmit,
     register,
@@ -32,6 +33,7 @@ function AddComponent() {
   } = useForm({
     resolver: yupResolver(addSchema),
   });
+
   useEffect(() => {
     setShoeCategoryArray(shoeCategory);
     setShoeTypeArray(shoeType);
@@ -39,7 +41,8 @@ function AddComponent() {
 
   useEffect(() => {
     console.log(shoesData);
-  });
+  }, [shoesData]);
+
   const delCategory = (item) => {
     // delete category from the list
     console.log("to jest e ", item);
@@ -49,6 +52,7 @@ function AddComponent() {
       category: shoesData.category.filter((cat) => cat !== item),
     });
   };
+
   const delType = (item) => {
     // delete type from the list
     console.log("to jest e ", item);
@@ -76,6 +80,7 @@ function AddComponent() {
       setShoeCategoryArray(shoeCategoryArray.filter((cat) => cat !== e));
     }
   };
+
   const addType = (e) => {
     // add type to the list
     if (shoesData.type == null) {
@@ -148,8 +153,10 @@ function AddComponent() {
   };
 
   return (
-    <div className="relative bg-backgr text-center content-center center item-center 
-    justify-center origin-center object-center place-items-center snap-center">
+    <div
+      className="relative bg-backgr text-center content-center center item-center 
+    justify-center origin-center object-center place-items-center snap-center"
+    >
       <h1 className=" text-5xl font-extrabold tracking-widest text-red-500 text-center mt-5">
         Add product
       </h1>
@@ -178,7 +185,7 @@ function AddComponent() {
                 {errors?.title?.message}
               </span>
             </div>
-            <br></br>
+            <br></br> 
             {/* MODEL */}
             <div className="  text-left text-xl flex flex-col ">
               <label className=" text-red-500 font-semibold">
@@ -316,7 +323,7 @@ function AddComponent() {
                   shoesData.category.map((shoe) => {
                     return (
                       <div key={uid()} className="flex">
-                        <label
+                        <button
                           onClick={(e) => delCategory(shoe)}
                           // {...register("category" , {
                           //   onClick: (e) => {
@@ -330,17 +337,17 @@ function AddComponent() {
                           className="hover:text-red-500 transition-colors duration-500 cursor-pointer"
                         >
                           {shoe}
-                        </label>
+                        </button>
                         <span className="mb-8 text-sm text-red-500">
                           {errors?.category?.message}
                         </span>
 
-                        <div
+                        <button
                           className=" h-3"
                           onClick={(e) => delCategory(shoe)}
                         >
                           <Svg need="delete" />
-                        </div>
+                        </button>
                       </div>
                     );
                   })}
@@ -397,18 +404,18 @@ function AddComponent() {
                 {shoeCategoryArray?.map((shoe) => {
                   return (
                     <div key={uid()} className="flex">
-                      <label
+                      <button
                         onClick={(e) => addCategory(shoe)}
                         className="hover:text-green-500 transition-colors duration-500 cursor-pointer"
                       >
                         {shoe}
-                      </label>
-                      <div
+                      </button>
+                      <button
                         onClick={(e) => addCategory(shoe)}
                         className="h-0 bg-red-300 relative top-2 left-0.5"
                       >
                         <Svg need="add" />
-                      </div>
+                      </button>
                     </div>
                   );
                 })}
@@ -423,18 +430,18 @@ function AddComponent() {
                 {shoeTypeArray?.map((shoe) => {
                   return (
                     <div key={uid()} className="flex">
-                      <label
+                      <button
                         onClick={(e) => addType(shoe)}
                         className="hover:text-green-500 transition-colors duration-500 cursor-pointer"
                       >
                         {shoe}
-                      </label>
-                      <div
+                      </button>
+                      <button
                         onClick={(e) => addType(shoe)}
                         className="h-0 bg-red-300 relative top-2 left-0.5"
                       >
                         <Svg need="add" />
-                      </div>
+                      </button>
                     </div>
                   );
                 })}

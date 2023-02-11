@@ -3,14 +3,16 @@ import { useDispatch } from "react-redux";
 import { selectTotal } from "../../Redux/BasketSlice";
 import Currency from "react-currency-formatter";
 import { useSelector } from "react-redux";
+import { selectItems } from "../../Redux/BasketSlice";
 
 function CheckoutTrans() {
   const dispatch = useDispatch();
   const total = useSelector(selectTotal);
+  const items = useSelector(selectItems);
 
   return (
     <div className="basis-1/5 bg-elementC rounded-xl">
-      <p className="font-semibold text-2xl">Total items()</p>
+      <p className="font-semibold text-2xl ">Total items (<a className="text-xl text-green-100 ">{items.length}</a>) </p>
       <p className="font-semibold text-xl p-4">
         your total price:
         <a className="p-2">
